@@ -18,55 +18,109 @@ const listCardsExperience = [
   {
     text: 'Vịnh Hạ Long',
     title: 'Hải Phòng Việt Nam',
-    image: IMAGE.IMG_HALONG,
+    image_banner: IMAGE.IMG_HALONG,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '20.000.000 vnd',
   },
   {
     text: 'Ruộng Bậc Thang',
     title: 'Hà Giang Việt Nam',
-    image: IMAGE.IMG_RUONGBT,
+    image_banner: IMAGE.IMG_RUONGBT,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '30.000.000 vnd',
   },
   {
     text: 'Hồ Hoàn Kiếm',
     title: 'Hà Nội Việt Nam',
-    image: IMAGE.IMG_HANOI,
+    image_banner: IMAGE.IMG_HANOI,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '10.000.000 vnd',
   },
   {
     text: 'Vịnh Hạ Long',
     title: 'Hải Phòng Việt Nam',
-    image: IMAGE.IMG_HALONG,
+    image_banner: IMAGE.IMG_HALONG,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '20.000.000 vnd',
   },
   {
     text: 'Ruộng Bậc Thang',
     title: 'Hà Giang Việt Nam',
-    image: IMAGE.IMG_RUONGBT,
+    image_banner: IMAGE.IMG_RUONGBT,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '30.000.000 vnd',
   },
   {
     text: 'Hồ Hoàn Kiếm',
     title: 'Hà Nội Việt Nam',
-    image: IMAGE.IMG_HANOI,
+    image_banner: IMAGE.IMG_HANOI,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '10.000.000 vnd',
   },
   {
     text: 'Vinh ha long',
     title: 'Hải Phòng Việt Nam',
-    image: IMAGE.IMG_HALONG,
+    image_banner: IMAGE.IMG_HALONG,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '20.000.000 vnd',
   },
   {
     text: 'Ruộng Bậc Thang',
     title: 'Hà Giang Việt Nam',
-    image: IMAGE.IMG_RUONGBT,
+    image_banner: IMAGE.IMG_RUONGBT,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '30.000.000 vnd',
   },
   {
     text: 'Hồ Hoàn Kiếm',
     title: 'Hà Nội Việt Nam',
-    image: IMAGE.IMG_HANOI,
+    image_banner: IMAGE.IMG_HANOI,
+    review: [
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.8:81/img/haNoi.jpg',
+      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+    ],
     price: '10.000.000 vnd',
   },
 ];
@@ -86,7 +140,7 @@ export class TraiNgiemScreen extends Component {
                     this.props.navigation.navigate('HomeDetail', {ThamSo: item})
                   }>
                   <ImageBackground
-                    source={item.image}
+                    source={item.image_banner}
                     style={styles.img}
                     imageStyle={styles.imgbackground}>
                     <View style={[styles.infoImage, styles.shadow]}>
