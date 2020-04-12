@@ -4,6 +4,7 @@ import {Component} from 'react';
 import {
   Text,
   View,
+  Image,
   StyleSheet,
   ImageBackground,
   SafeAreaView,
@@ -128,27 +129,27 @@ const listCardsExperience = [
 export class TraiNgiemScreen extends Component {
   render() {
     return (
-      <SafeAreaView style={styles.flex}>
+      <SafeAreaView style={styles.view}>
         <View style={styles.list}>
           <FlatList
-            showsVerticalScrollIndicator={false}
+            pagingEnabled
+            scrollEnabled
+            showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={16}
+            snapToAlignment="center"
             data={listCardsExperience}
             renderItem={({item}) => (
-              <View style={styles.margin}>
+              <View style={styles.flatlist}>
                 <TouchableOpacity
                   onPress={() =>
                     this.props.navigation.navigate('HomeDetail', {ThamSo: item})
                   }>
-                  <ImageBackground
-                    source={item.image_banner}
-                    style={styles.img}
-                    imageStyle={styles.imgbackground}>
-                    <View style={[styles.infoImage, styles.shadow]}>
-                      <Text>{item.text}</Text>
-                      <Text>{item.title}</Text>
-                      <Text>{item.price}</Text>
-                    </View>
-                  </ImageBackground>
+                  <Image source={item.image_banner} style={styles.image} />
+                  <View style={styles.text}>
+                    <Text style={styles.Header_Text}>{item.text}</Text>
+                    <Text style={styles.Title_Text}>{item.title}</Text>
+                    <Text style={styles.price_Text}>{item.price}</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             )}
@@ -160,40 +161,40 @@ export class TraiNgiemScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
-  flex: {
+  view: {
     flex: 1,
+    backgroundColor: 'rgba(135,206,250,0.3)',
   },
   list: {
+    flex: 1,
     marginHorizontal: 20,
   },
-  img: {
-    width: width - 20 * 2,
-    height: height - 220 * 2,
+  flatlist: {
+    marginVertical: 15,
   },
-  imgbackground: {
-    borderRadius: 35,
+  image: {
+    width: '100%',
+    height: 200,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
-  infoImage: {
-    position: 'absolute',
-    borderRadius: 20,
-    padding: 15,
-    right: 0,
-    left: 0,
-    bottom: -45,
-    backgroundColor: '#FFFFFF',
+  text: {
+    borderWidth: 1,
+    borderBottomLeftRadius: 20,
+    backgroundColor: 'rgba(230,230,250,1)',
+    borderBottomRightRadius: 20,
   },
-  margin: {
-    marginTop: 70,
+  Header_Text: {
+    fontSize: 20,
+    marginLeft: 15,
   },
-  shadow: {
-    borderWidth: 3,
-    borderRadius: 30,
-    borderColor: '#ddd',
-    borderBottomWidth: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+  Title_Text: {
+    marginLeft: 20,
+    fontSize: 16,
+    color: 'gray',
+  },
+  price_Text: {
+    fontSize: 20,
+    marginLeft: 15,
   },
 });
