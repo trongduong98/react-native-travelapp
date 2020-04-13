@@ -135,6 +135,7 @@ export class NghiDuongScreen extends Component {
             pagingEnabled
             scrollEnabled
             showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             scrollEventThrottle={16}
             snapToAlignment="center"
             data={listCardsResort}
@@ -144,7 +145,10 @@ export class NghiDuongScreen extends Component {
                   onPress={() =>
                     this.props.navigation.navigate('HomeDetail', {ThamSo: item})
                   }>
-                  <Image source={item.image_banner} style={styles.image} />
+                  <Image
+                    source={item.image_banner}
+                    style={[styles.image, styles.shadow]}
+                  />
                   <View style={styles.text}>
                     <Text style={styles.Header_Text}>{item.text}</Text>
                     <Text style={styles.Title_Text}>{item.title}</Text>
@@ -196,5 +200,14 @@ const styles = StyleSheet.create({
   price_Text: {
     fontSize: 20,
     marginLeft: 15,
+  },
+  shadow: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderBottomWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 2,
   },
 });

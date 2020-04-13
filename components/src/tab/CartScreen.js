@@ -4,6 +4,7 @@ import {Component} from 'react';
 import {
   Text,
   View,
+  Image,
   ImageBackground,
   Button,
   StyleSheet,
@@ -22,46 +23,39 @@ export class CartScreen extends Component {
         <CustomHeader Title="Thanh Toan" navigation={this.props.navigation} />
         <View style={styles.input}>
           <ImageBackground
-            style={styles.tour}
+            source={IMAGE.IMG_HALONG}
+            style={[styles.image_style, styles.shadow]}
             imageStyle={styles.img}
-            source={IMAGE.IMG_RUONGBT}>
-            <View style={styles.info}>
-              <View
-                style={{
-                  backgroundColor: 'gray',
-                  height: 90,
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                }}>
-                <Text style={{fontSize: 20, marginLeft: 20}}>
-                  thong tin co ban
-                </Text>
-                <Text> teen tour ddax chon</Text>
-              </View>
-              <View>
-                <InputSpinner
-                  min={1}
-                  step={1}
-                  rounded={false}
-                  showBorder={true}
-                  fontSize={15}
-                  inputStyle={{
-                    paddingVertical: 5,
-                  }}
-                  width={100}
-                  height={30}
-                  // value={item.quantity}
-                  // onIncrease={increased => {
-                  //   this.editItemCart(item, 'add');
-                  // }}
-                  // onDecrease={decreased => {
-                  //   this.editItemCart(item, 'sub');
-                  // }}
-                  // style={styles.cartSpinner}
-                />
-              </View>
+          />
+          <View style={[styles.info, styles.shadow]}>
+            <View style={styles.title_style}>
+              <Text style={{fontSize: 25, marginLeft: 20}}>Tour đã đặt</Text>
+              <Text> teen tour ddax chon</Text>
             </View>
-          </ImageBackground>
+            <View style={styles.title_style2}>
+              <InputSpinner
+                min={1}
+                step={1}
+                rounded={false}
+                showBorder={true}
+                fontSize={15}
+                inputStyle={{
+                  paddingVertical: 5,
+                }}
+                width={100}
+                height={30}
+                style={{marginTop: 15, marginLeft: 10}}
+                // value={item.quantity}
+                // onIncrease={increased => {
+                //   this.editItemCart(item, 'add');
+                // }}
+                // onDecrease={decreased => {
+                //   this.editItemCart(item, 'sub');
+                // }}
+                // style={styles.cartSpinner}
+              />
+            </View>
+          </View>
         </View>
         <View style={styles.Show} />
       </SafeAreaView>
@@ -82,29 +76,54 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
   },
-  tour: {
-    height: 220,
-    marginTop: -120,
-    width: 350,
-    marginLeft: -40,
+  image_style: {
+    width: '90%',
+    height: '60%',
+    borderRadius: 15,
+    marginTop: 2,
+    marginLeft: -14,
+    overflow: 'visible',
   },
   img: {
-    borderRadius: 20,
+    borderRadius: 15,
   },
   info: {
     backgroundColor: 'white',
+    overflow: 'visible',
     marginHorizontal: 50,
     height: 150,
     width: 320,
     borderRadius: 20,
-    marginLeft: 75,
-    marginTop: 150,
+    marginLeft: 135,
+    marginTop: -30,
+  },
+  title_style: {
+    height: 90,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  title_style2: {
+    flex: 1,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    borderTopWidth: 1,
   },
   Show: {
     flex: 1,
+    backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 20,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 10.6,
+    borderWidth: 0.4,
+    elevation: 18,
   },
 });
