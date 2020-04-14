@@ -40,11 +40,11 @@ export class CartScreen extends Component {
                 showBorder={true}
                 fontSize={15}
                 inputStyle={{
-                  paddingVertical: 5,
+                  paddingVertical: 4,
                 }}
                 width={100}
                 height={30}
-                style={{marginTop: 15, marginLeft: 10}}
+                style={{marginTop: 15, marginLeft: 30}}
                 // value={item.quantity}
                 // onIncrease={increased => {
                 //   this.editItemCart(item, 'add');
@@ -54,6 +54,9 @@ export class CartScreen extends Component {
                 // }}
                 // style={styles.cartSpinner}
               />
+              <TouchableOpacity>
+                <Image source={IMAGE.ICON_DELETE} style={styles.image_delete} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 320,
     borderRadius: 20,
-    marginLeft: 135,
+    marginLeft: 130,
     marginTop: -30,
   },
   title_style: {
@@ -108,6 +111,14 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     borderTopWidth: 1,
+    flexDirection: 'row',
+  },
+  image_delete: {
+    width: 35,
+    height: 35,
+    marginLeft: 130,
+    marginTop: 13,
+    flexDirection: 'row',
   },
   Show: {
     flex: 1,

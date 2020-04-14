@@ -239,7 +239,6 @@ const styles = StyleSheet.create({
     marginLeft: 2,
     marginHorizontal: 10,
     overflow: 'visible',
-    backgroundColor: 'pink',
   },
   infoImage: {
     position: 'absolute',
