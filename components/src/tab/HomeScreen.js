@@ -14,116 +14,6 @@ import {CustomHeader} from '../index';
 import {IMAGE} from '../constants/image';
 const {width, height} = Dimensions.get('screen');
 
-const listCards = [
-  {
-    text: 'Vịnh Hạ Long',
-    title: 'Hải Phòng Việt Nam',
-    image_banner: IMAGE.IMG_HALONG,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '20.000.000 vnd',
-  },
-  {
-    text: 'Ruộng Bậc Thang',
-    title: 'Hà Giang Việt Nam',
-    image_banner: IMAGE.IMG_RUONGBT,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '30.000.000 vnd',
-  },
-  {
-    text: 'Hồ Hoàn Kiếm',
-    title: 'Hà Nội Việt Nam',
-    image_banner: IMAGE.IMG_HANOI,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '10.000.000 vnd',
-  },
-  {
-    text: 'Vịnh Hạ Long',
-    title: 'Hải Phòng Việt Nam',
-    image_banner: IMAGE.IMG_HALONG,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '20.000.000 vnd',
-  },
-  {
-    text: 'Ruộng Bậc Thang',
-    title: 'Hà Giang Việt Nam',
-    image_banner: IMAGE.IMG_RUONGBT,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '30.000.000 vnd',
-  },
-  {
-    text: 'Hồ Hoàn Kiếm',
-    title: 'Hà Nội Việt Nam',
-    image_banner: IMAGE.IMG_HANOI,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '10.000.000 vnd',
-  },
-  {
-    text: 'Vinh ha long',
-    title: 'Hải Phòng Việt Nam',
-    image_banner: IMAGE.IMG_HALONG,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '20.000.000 vnd',
-  },
-  {
-    text: 'Ruộng Bậc Thang',
-    title: 'Hà Giang Việt Nam',
-    image_banner: IMAGE.IMG_RUONGBT,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '30.000.000 vnd',
-  },
-  {
-    text: 'Hồ Hoàn Kiếm',
-    title: 'Hà Nội Việt Nam',
-    image_banner: IMAGE.IMG_HANOI,
-    review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-    ],
-    price: '10.000.000 vnd',
-  },
-];
 export class HomeScreen extends Component {
   //banner tự chuyển ảnh
   constructor(props) {
@@ -141,6 +31,7 @@ export class HomeScreen extends Component {
           url: IMAGE.IMG_BANNER4,
         },
       ],
+      listCards: [],
     };
   }
   changeImage() {
@@ -154,6 +45,13 @@ export class HomeScreen extends Component {
     });
   }
   componentDidMount() {
+    fetch('http:192.168.1.2:81/listTourHot.php')
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          listCards: responseJson,
+        });
+      });
     this._interval = setInterval(() => {
       this.changeImage();
     }, 2000);
@@ -188,24 +86,24 @@ export class HomeScreen extends Component {
         <View style={[styles.styleFex, styles.viewList, styles.colum]}>
           <FlatList
             horizontal
-            pagingEnabled
             scrollEnabled
             showsHorizontalScrollIndicator={false}
             scrollEventThrottle={16}
             snapToAlignment="center"
-            data={listCards}
+            data={this.state.listCards}
             renderItem={({item}) => (
               <View>
                 <TouchableOpacity
                   onPress={() =>
                     this.props.navigation.navigate('HomeDetail', {ThamSo: item})
                   }>
-                  <Image
-                    source={item.image_banner}
+                  <ImageBackground
+                    source={{uri: item.imageBackground}}
+                    imageStyle={styles.backgroundimagelistour}
                     style={[styles.imageCard, styles.shadow]}
                   />
-                  <Text style={styles.text}>{item.title}</Text>
-                  <Text style={styles.text}>{item.text}</Text>
+                  <Text style={styles.text}>{item.name}</Text>
+                  <Text style={styles.text}>{item.price} VNĐ</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -259,6 +157,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 10,
   },
+  backgroundimagelistour: {
+    width: width - 120 * 2,
+    height: height - 260 * 2,
+    borderRadius: 20,
+  },
   listImgCard: {
     width: width - 36 * 2,
     borderRadius: 12,
@@ -281,14 +184,15 @@ const styles = StyleSheet.create({
     overflow: 'visible',
   },
   shadow: {
-    borderWidth: 3,
-    borderRadius: 30,
-    borderColor: '#ddd',
-    borderBottomWidth: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 20,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 10.6,
+    //borderWidth: 0.4,
+    elevation: 18,
   },
   imgBackground: {
     borderRadius: 12,

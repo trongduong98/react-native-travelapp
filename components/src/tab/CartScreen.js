@@ -36,15 +36,15 @@ export class CartScreen extends Component {
               <InputSpinner
                 min={1}
                 step={1}
-                rounded={false}
-                showBorder={true}
-                fontSize={15}
+                rounded={true}
+                showBorder={false}
+                fontSize={18}
                 inputStyle={{
-                  paddingVertical: 4,
+                  paddingVertical: 5,
                 }}
-                width={100}
-                height={30}
-                style={{marginTop: 15, marginLeft: 30}}
+                width={130}
+                height={40}
+                style={{marginTop: 10, marginLeft: 25}}
                 // value={item.quantity}
                 // onIncrease={increased => {
                 //   this.editItemCart(item, 'add');
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   image_delete: {
     width: 35,
     height: 35,
-    marginLeft: 130,
+    marginLeft: 110,
     marginTop: 13,
     flexDirection: 'row',
   },
