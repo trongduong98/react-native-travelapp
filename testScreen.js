@@ -117,10 +117,10 @@ const listCardsAll = [
     title: 'Hà Nội Việt Nam',
     image_banner: IMAGE.IMG_HANOI,
     review: [
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
-      'http://192.168.1.8:81/img/haNoi.jpg',
-      'http://192.168.1.8:81/img/vinhHaLong.jpg',
+      'http://192.168.1.2:81/img/haNoi.jpg',
+      'http://192.168.1.2:81/img/vinhHaLong.jpg',
+      'http://192.168.1.2:81/img/haNoi.jpg',
+      'http://192.168.1.2:81/img/vinhHaLong.jpg',
     ],
     price: '10.000.000 vnd',
   },
@@ -128,49 +128,15 @@ const listCardsAll = [
 export default class Cart extends Component {
   render() {
     return (
-      <View style={styles.list}>
-        <FlatList
-          pagingEnabled
-          scrollEnabled
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          snapToAlignment="center"
-          data={listCardsAll}
-          renderItem={({item}) => (
-            <View style={styles.flatlist}>
-              <TouchableOpacity>
-                <Image source={item.image_banner} style={styles.image} />
-                <View style={styles.text}>
-                  <Text>asdasd</Text>
-                  <Text>asdasd</Text>
-                  <Text>asdasd</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+      <View style={{flex: 1}}>
+        <Text>halo</Text>
+        <ScrollView horizontal scrollEnabled pagingEnabled>
+          <ImageBackground
+            source={{uri: 'http://192.168.1.2:81/img/vinhHaLong.jpg'}}
+            style={{width: 400, height: 200}}
+          />
+        </ScrollView>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-    marginHorizontal: 20,
-  },
-  flatlist: {
-    marginVertical: 15,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-  },
-  text: {
-    borderWidth: 1,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-});

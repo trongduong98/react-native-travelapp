@@ -27,10 +27,10 @@ export class HomeScreenDetail extends Component {
             decelerationRate={0}
             scrollEventThrottle={16}
             snapToAlignment="center">
-            {ThamSo.image.map((image, index) => (
+            {ThamSo.images.map((img, index) => (
               <Image
-                key={`${index}-${image}`}
-                source={{uri: image}}
+                key={`${index}-${img}`}
+                source={{uri: img}}
                 resizeMode="cover"
                 style={[styles.styleImg, styles.flex]}
               />
