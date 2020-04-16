@@ -39,9 +39,8 @@ export class HomeScreenDetail extends Component {
         </View>
         <View style={[styles.flex]}>
           <ScrollView>
-            <Text>Giới thiệu Tour</Text>
-            <Text>{ThamSo.text}</Text>
-            <Text>{ThamSo.title}</Text>
+            <Text style={styles.DetailName}>{ThamSo.name}</Text>
+            <Text style={styles.descriptiontour}>{ThamSo.description}</Text>
           </ScrollView>
         </View>
         <View style={styles.GiaTour}>
@@ -103,6 +102,15 @@ const styles = StyleSheet.create({
   },
   ContenTour: {
     fontSize: 15,
+  },
+  DetailName: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 14,
+  },
+  descriptiontour: {
+    marginHorizontal: 8,
+    fontSize: 16,
   },
   Gia: {
     fontSize: 30,
