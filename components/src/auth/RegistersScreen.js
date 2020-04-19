@@ -54,7 +54,7 @@ export class RegistersScreen extends Component {
       })
         .then(response => response.json())
         .then(responseJson => {
-          // Showing response message coming from server after inserting records.
+          // Hiển thị thông báo từ máy chủ
           Alert.alert(responseJson);
         })
         .catch(error => {

@@ -30,7 +30,7 @@ $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
  
 if(isset($check)){
  
- $EmailExistMSG = 'Email Already Exist, Please Try Again !!!';
+ $EmailExistMSG = 'Địa chỉ email đã được sử dụng, vui lòng sử dụng đỉa chỉ email khác';
  
  // Converting the message into JSON format.
 $EmailExistJson = json_encode($EmailExistMSG);
@@ -48,7 +48,7 @@ $Sql_Query = "insert into user_details (name,email,password) values ('$name','$e
  if(mysqli_query($con,$Sql_Query)){
  
  // If the record inserted successfully then show the message.
-$MSG = 'User Registered Successfully' ;
+$MSG = 'Chúc mừng bạn đã đăng ký thành công' ;
  
 // Converting the message into JSON format.
 $json = json_encode($MSG);

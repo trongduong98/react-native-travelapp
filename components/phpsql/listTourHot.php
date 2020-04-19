@@ -18,6 +18,7 @@ $images = [];
 if ($result->num_rows > 0) {
  // Lần lượt đổ dữ liệu lấy được từ cơ sở dữ liệu vào mảng
  while ($row = $result->fetch_assoc()) {
+     //Tách chuổi ngăn cách nhau bơi giấu ',' từ bảng data
      $review = explode(',', $row['review']);
      $image1 = (count($review) > 0) ? $review[0] : null ;
      $image2 = (count($review) > 1) ? $review[1] : null ;
@@ -25,6 +26,7 @@ if ($result->num_rows > 0) {
      $image4 = (count($review) > 3) ? $review[3] : null ;
      $image5 = (count($review) > 4) ? $review[4] : null ;
      $image6 = (count($review) > 5) ? $review[5] : null ;
+     //đổ chuổi vừa tách đc thành mãng mới
      $images = array(
          $image1,
          $image2,

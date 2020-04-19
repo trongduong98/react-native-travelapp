@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   Keyboard,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,22 +23,43 @@ export class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      check_textInputChange: false,
-      password: '',
+      UserEmail: '',
+      UserPassword: '',
       secureTextEntry: true,
     };
   }
-  textInputChange(value) {
-    if (value.length !== 0) {
-      this.setState({
-        check_textInputChange: true,
-      });
+  UserLoginFunction = () => {
+    if (this.state.UserEmail != '' || this.state.UserPassword != '') {
+      fetch('http://192.168.1.6:81/user_login.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.UserEmail,
+          password: this.state.UserPassword,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          // If server response message same as Data Matched
+          if (responseJson === 'Data Matched') {
+            //Then open Profile activity and send user email to profile activity.
+            this.props.navigation.navigate('HomeApp');
+          } else {
+            Alert.alert(responseJson);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
     } else {
-      this.setState({
-        check_textInputChange: false,
-      });
+      // Báo lỗi nếu chưa nhập thong tin
+      // eslint-disable-next-line no-alert
+      alert('Vui lòng nhập thông tin đăng nhập');
     }
-  }
+  };
   secureTextEntry() {
     this.setState({
       secureTextEntry: !this.state.secureTextEntry,
@@ -58,17 +80,11 @@ export class LoginScreen extends Component {
             <View style={styles.action}>
               <FontAwesome name="user-o" color="rgb(65,105,225)" size={35} />
               <TextInput
-                placeholder="Your gmail adress"
+                placeholder="Your email adress"
                 style={styles.inputText}
-                onChangeText={text => this.textInputChange(text)}
+                onChangeText={UserEmail => this.setState({UserEmail})}
+                underlineColorAndroid="transparent"
               />
-              {this.state.check_textInputChange ? (
-                <Feather
-                  name="check-circle"
-                  color="rgb(65,105,225)"
-                  size={35}
-                />
-              ) : null}
             </View>
             <View style={styles.action}>
               <Feather name="lock" color="rgb(65,105,225)" size={37} />
@@ -78,7 +94,8 @@ export class LoginScreen extends Component {
                   secureTextEntry={true}
                   style={styles.inputText}
                   value={this.state.password}
-                  onChangeText={text => this.setState({password: text})}
+                  onChangeText={UserPassword => this.setState({UserPassword})}
+                  underlineColorAndroid="transparent"
                 />
               ) : (
                 <TextInput
@@ -102,7 +119,7 @@ export class LoginScreen extends Component {
               <Text style={styles.forgotpass}>Forgot password ?</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('HomeApp')}
+              onPress={this.UserLoginFunction}
               style={styles.butomSingin}>
               <Text style={styles.bottonsingin}>Singin</Text>
             </TouchableOpacity>
