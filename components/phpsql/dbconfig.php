@@ -1,15 +1,15 @@
 <?php
  
-//Define your host here.
+//host sever.
 $HostName = "localhost";
  
-//Define your database name here.
+//tên database.
 $DatabaseName = "travelapp";
  
-//Define your database username here.
+//tên user host.
 $HostUser = "root";
  
-//Define your database password here.
+//pass của user.
 $HostPass = "";
  
 ?>

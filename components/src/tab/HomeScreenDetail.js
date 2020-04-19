@@ -14,11 +14,10 @@ import {CustomHeader} from '../index';
 import {Button, Text} from 'native-base';
 
 export class HomeScreenDetail extends Component {
+  scrollX = new Animated.Value(0);
   constructor(props) {
     super(props);
-    this.state = {
-      scrollX: new Animated.Value(0),
-    };
+    this.state = {};
   }
   render() {
     const {ThamSo} = this.props.route.params;
@@ -27,14 +26,14 @@ export class HomeScreenDetail extends Component {
         <CustomHeader Title="Thông tin" navigation={this.props.navigation} />
         <View style={styles.flex}>
           <ScrollView
-            horizontal
+            horizontal={true}
             pagingEnabled
             scrollEnabled
             showsHorizontalScrollIndicator={false}
             decelerationRate={0}
             scrollEventThrottle={16}
             onScroll={Animated.event([
-              {nativeEvent: {contentOffset: {x: this.state.scrollX}}},
+              {nativeEvent: {contentOffset: {x: this.scrollX}}},
             ])}
             snapToAlignment="center">
             {ThamSo.images.map((img, index) => (

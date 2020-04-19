@@ -1,9 +1,9 @@
 <?php
  
-// Importing DBConfig.php file.
+// Thêm file thông tin kết nối host server.
 include 'dbconfig.php';
  
-// Creating connection.
+// khởi tạo kết nối.
 $con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName);
  
 // Getting the received JSON into $json variable.
@@ -30,38 +30,34 @@ $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
  
 if(isset($check)){
  
- $EmailExistMSG = 'Địa chỉ email đã được sử dụng, vui lòng sử dụng đỉa chỉ email khác';
+    $EmailExistMSG = 'Địa chỉ email đã được sử dụng, vui lòng sử dụng đỉa chỉ email khác';
+    // Converting the message into JSON format.
+    $EmailExistJson = json_encode($EmailExistMSG);
  
- // Converting the message into JSON format.
-$EmailExistJson = json_encode($EmailExistMSG);
+    // Echo the message.
+    echo $EmailExistJson ; 
+}
+else{
  
-// Echo the message.
- echo $EmailExistJson ; 
+    // Creating SQL query and insert the record into MySQL database table.
+    $Sql_Query = "insert into user_details (name,email,password) values ('$name','$email','$password')";
  
- }
- else{
+    if(mysqli_query($con,$Sql_Query)){
  
- // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into user_details (name,email,password) values ('$name','$email','$password')";
+    // If the record inserted successfully then show the message.
+        $MSG = 'Chúc mừng bạn đã đăng ký thành công' ;
  
+        // Converting the message into JSON format.
+        $json = json_encode($MSG);
  
- if(mysqli_query($con,$Sql_Query)){
+        // Echo the message.
+    echo $json ;
+}
+    else{
  
- // If the record inserted successfully then show the message.
-$MSG = 'Chúc mừng bạn đã đăng ký thành công' ;
+        echo 'Try Again';
  
-// Converting the message into JSON format.
-$json = json_encode($MSG);
- 
-// Echo the message.
- echo $json ;
- 
- }
- else{
- 
- echo 'Try Again';
- 
- }
- }
+    }
+}
  mysqli_close($con);
 ?>
