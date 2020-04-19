@@ -29,7 +29,7 @@ export class LoginScreen extends Component {
     };
   }
   UserLoginFunction = () => {
-    if (this.state.UserEmail != '' || this.state.UserPassword != '') {
+    if (this.state.UserEmail !== '' && this.state.UserPassword !== '') {
       fetch('http://192.168.1.6:81/user_login.php', {
         method: 'POST',
         headers: {
