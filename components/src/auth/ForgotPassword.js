@@ -13,6 +13,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -44,6 +45,11 @@ export class ForgotPasswordScreen extends Component {
             animation="zoomInDown"
             duration={1000}
             style={styles.header}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack()}
+              style={styles.goback}>
+              <AntDesign name="back" size={35} color="white" />
+            </TouchableOpacity>
             <Text style={styles.welcome}>Forgot password !</Text>
           </Animatable.View>
           <Animatable.View
@@ -87,6 +93,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginLeft: 30,
+  },
+  goback: {
+    marginHorizontal: -15,
+    marginTop: -20,
   },
   welcome: {
     fontSize: 50,

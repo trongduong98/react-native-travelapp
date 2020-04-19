@@ -10,11 +10,12 @@ import {
   SafeAreaView,
   Keyboard,
   Alert,
-  Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -60,7 +61,8 @@ export class RegistersScreen extends Component {
           console.error(error);
         });
     } else {
-      // Báo lỗi nếu chưa nhập sdt
+      // Báo lỗi nếu chưa nhập thong tin
+      // eslint-disable-next-line no-alert
       alert('Vui lòng nhập thông tin đăng ký');
     }
   };
@@ -82,8 +84,10 @@ export class RegistersScreen extends Component {
             animation="zoomInDown"
             duration={1000}
             style={styles.header}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <Image source={require('../../icon/back.png')} />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack()}
+              style={styles.goback}>
+              <AntDesign name="back" size={35} color="white" />
             </TouchableOpacity>
             <Text style={styles.welcome}>Welcome !</Text>
           </Animatable.View>
@@ -94,7 +98,7 @@ export class RegistersScreen extends Component {
             <TouchableOpacity onPress={Keyboard.dismiss} accessible={false}>
               <Text style={styles.text_footer}>Name</Text>
               <View style={styles.action}>
-                <FontAwesome name="user-o" color="rgb(65,105,225)" size={35} />
+                <FontAwesome name="user-o" color="rgb(65,105,225)" size={32} />
                 <TextInput
                   placeholder="name"
                   style={styles.inputText}
@@ -102,9 +106,9 @@ export class RegistersScreen extends Component {
                   underlineColorAndroid="transparent"
                 />
               </View>
-              <Text style={styles.text_footer}>E-MAIL</Text>
+              <Text style={styles.text_footer}>E-mail</Text>
               <View style={styles.action}>
-                <FontAwesome name="user-o" color="rgb(65,105,225)" size={35} />
+                <Fontisto name="email" color="rgb(65,105,225)" size={34} />
                 <TextInput
                   placeholder="email"
                   secureTextEntry={false}
@@ -116,7 +120,7 @@ export class RegistersScreen extends Component {
               </View>
               <Text style={styles.text_footer}>Password</Text>
               <View style={styles.action}>
-                <Feather name="lock" color="rgb(65,105,225)" size={37} />
+                <Feather name="lock" color="rgb(65,105,225)" size={34} />
                 {this.state.secureTextEntry_confirm ? (
                   <TextInput
                     placeholder="password"
@@ -148,8 +152,8 @@ export class RegistersScreen extends Component {
               </View>
               <TouchableOpacity
                 onPress={this.UserRegistrationFunction}
-                style={styles.butomSingin}>
-                <Text style={styles.bottonsingin}>SingUp</Text>
+                style={styles.butomSingup}>
+                <Text style={styles.bottonsingup}>SingUp</Text>
               </TouchableOpacity>
             </TouchableOpacity>
           </Animatable.View>
@@ -169,8 +173,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 30,
   },
+  goback: {
+    marginHorizontal: -15,
+    marginTop: -56,
+  },
   welcome: {
     fontSize: 50,
+    marginTop: 15,
     color: 'white',
     fontWeight: 'bold',
   },
@@ -182,54 +191,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     backgroundColor: 'white',
   },
-  text_footer: {
-    color: '#05375A',
-    fontSize: 20,
-  },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
     borderBottomColor: '#F2F2F2',
     borderBottomWidth: 1,
     paddingBottom: 5,
   },
   inputText: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 16,
     paddingLeft: 10,
     color: '#05375A',
   },
-  forgotpass: {
-    marginTop: 15,
-    color: 'rgb(0,0,205)',
-    fontSize: 16,
-    textDecorationLine: 'underline',
-  },
-  butomSingin: {
+  butomSingup: {
     backgroundColor: 'rgb(30,144,255)',
     width: '100%',
     height: 60,
     marginTop: 18,
     borderRadius: 10,
   },
-  butomSingup: {
-    backgroundColor: 'rgb(224,255,255)',
-    width: '100%',
-    height: 60,
-    marginTop: 18,
-    borderRadius: 10,
-    borderColor: 'rgb(30,144,255)',
-    borderWidth: 1.5,
-  },
-  bottonsingin: {
+  bottonsingup: {
     color: 'white',
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginTop: 9,
-    marginLeft: '37%',
-  },
-  bottonSingup: {
-    color: 'rgb(30,144,255)',
     fontSize: 26,
     fontWeight: 'bold',
     marginTop: 9,
