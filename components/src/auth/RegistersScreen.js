@@ -9,6 +9,8 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   Keyboard,
+  Alert,
+  Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,24 +24,46 @@ export class RegistersScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      check_textInputChange: false,
-      password: '',
-      password_confirm: '',
+      UserName: '',
+      UserEmail: '',
+      UserPassword: '',
       secureTextEntry: true,
       secureTextEntry_confirm: true,
     };
   }
-  textInputChange(value) {
-    if (value.length !== 0) {
-      this.setState({
-        check_textInputChange: true,
-      });
+  UserRegistrationFunction = () => {
+    if (
+      this.state.UserName !== '' &&
+      this.state.UserEmail !== '' &&
+      this.state.UserPassword !== ''
+    ) {
+      fetch('http://192.168.1.6:81/user_registration.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.state.UserName,
+
+          email: this.state.UserEmail,
+
+          password: this.state.UserPassword,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          // Showing response message coming from server after inserting records.
+          Alert.alert(responseJson);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     } else {
-      this.setState({
-        check_textInputChange: false,
-      });
+      // Báo lỗi nếu chưa nhập sdt
+      alert('Vui lòng nhập thông tin đăng ký');
     }
-  }
+  };
   secureTextEntry() {
     this.setState({
       secureTextEntry: !this.state.secureTextEntry,
@@ -58,6 +82,9 @@ export class RegistersScreen extends Component {
             animation="zoomInDown"
             duration={1000}
             style={styles.header}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <Image source={require('../../icon/back.png')} />
+            </TouchableOpacity>
             <Text style={styles.welcome}>Welcome !</Text>
           </Animatable.View>
           <Animatable.View
@@ -65,70 +92,49 @@ export class RegistersScreen extends Component {
             duration={1000}
             style={styles.footer}>
             <TouchableOpacity onPress={Keyboard.dismiss} accessible={false}>
+              <Text style={styles.text_footer}>Name</Text>
+              <View style={styles.action}>
+                <FontAwesome name="user-o" color="rgb(65,105,225)" size={35} />
+                <TextInput
+                  placeholder="name"
+                  style={styles.inputText}
+                  onChangeText={name => this.setState({UserName: name})}
+                  underlineColorAndroid="transparent"
+                />
+              </View>
               <Text style={styles.text_footer}>E-MAIL</Text>
               <View style={styles.action}>
                 <FontAwesome name="user-o" color="rgb(65,105,225)" size={35} />
                 <TextInput
-                  placeholder="Your gmail adress"
+                  placeholder="email"
+                  secureTextEntry={false}
                   style={styles.inputText}
-                  onChangeText={text => this.textInputChange(text)}
+                  value={this.state.UserEmail}
+                  onChangeText={email => this.setState({UserEmail: email})}
+                  underlineColorAndroid="transparent"
                 />
-                {this.state.check_textInputChange ? (
-                  <Feather
-                    name="check-circle"
-                    color="rgb(65,105,225)"
-                    size={35}
-                  />
-                ) : null}
               </View>
-              <View style={styles.action}>
-                <Feather name="lock" color="rgb(65,105,225)" size={37} />
-                {this.state.secureTextEntry ? (
-                  <TextInput
-                    placeholder="Your password"
-                    secureTextEntry={true}
-                    style={styles.inputText}
-                    value={this.state.password}
-                    onChangeText={text => this.setState({password: text})}
-                  />
-                ) : (
-                  <TextInput
-                    placeholder="Your password"
-                    secureTextEntry={false}
-                    style={styles.inputText}
-                    value={this.state.password}
-                    onChangeText={text => this.setState({password: text})}
-                  />
-                )}
-                <TouchableOpacity onPress={() => this.secureTextEntry()}>
-                  {this.state.secureTextEntry ? (
-                    <Feather name="eye-off" color="rgb(65,105,225)" size={35} />
-                  ) : (
-                    <Feather name="eye" color="rgb(65,105,225)" size={35} />
-                  )}
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.text_footer}>Password</Text>
               <View style={styles.action}>
                 <Feather name="lock" color="rgb(65,105,225)" size={37} />
                 {this.state.secureTextEntry_confirm ? (
                   <TextInput
-                    placeholder="Confirm password"
+                    placeholder="password"
                     secureTextEntry={true}
                     style={styles.inputText}
-                    value={this.state.password_confirm}
-                    onChangeText={text =>
-                      this.setState({password_confirm: text})
+                    value={this.state.UserPassword}
+                    onChangeText={password =>
+                      this.setState({UserPassword: password})
                     }
+                    underlineColorAndroid="transparent"
                   />
                 ) : (
                   <TextInput
-                    placeholder="Confirm password"
+                    placeholder="password"
                     secureTextEntry={false}
                     style={styles.inputText}
-                    value={this.state.password_confirm}
-                    onChangeText={text =>
-                      this.setState({password_confirm: text})
-                    }
+                    value={this.state.UserPassword}
+                    onChangeText={text => this.setState({UserPassword: text})}
                   />
                 )}
                 <TouchableOpacity
@@ -141,7 +147,7 @@ export class RegistersScreen extends Component {
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={this.UserRegistrationFunction}
                 style={styles.butomSingin}>
                 <Text style={styles.bottonsingin}>SingUp</Text>
               </TouchableOpacity>

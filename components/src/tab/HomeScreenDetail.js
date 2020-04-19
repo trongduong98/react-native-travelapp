@@ -8,11 +8,18 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Animated,
 } from 'react-native';
 import {CustomHeader} from '../index';
 import {Button, Text} from 'native-base';
 
 export class HomeScreenDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollX: new Animated.Value(0),
+    };
+  }
   render() {
     const {ThamSo} = this.props.route.params;
     return (
@@ -26,6 +33,9 @@ export class HomeScreenDetail extends Component {
             showsHorizontalScrollIndicator={false}
             decelerationRate={0}
             scrollEventThrottle={16}
+            onScroll={Animated.event([
+              {nativeEvent: {contentOffset: {x: this.state.scrollX}}},
+            ])}
             snapToAlignment="center">
             {ThamSo.images.map((img, index) => (
               <Image

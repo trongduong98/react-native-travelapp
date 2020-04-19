@@ -3,14 +3,14 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "api";
+$dbname = "travelapp";
 // Tạo kết nối đến cơ sở dữ liệu
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Kiểm tra kết nối
 if ($conn->connect_error) {
  die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM tour";
+$sql = "SELECT * FROM tourhot";
 $result = $conn->query($sql);
 // Chuẩn bị mảng rỗng
 $tours = [];
@@ -19,12 +19,12 @@ if ($result->num_rows > 0) {
  // Lần lượt đổ dữ liệu lấy được từ cơ sở dữ liệu vào mảng
  while ($row = $result->fetch_assoc()) {
      $review = explode(',', $row['review']);
-     $image1 = (count($review) > 0) ? $review[0] : null;
-     $image2 = (count($review) > 1) ? $review[1] : null;
-     $image3 = (count($review) > 2) ? $review[2] : null;
-     $image4 = (count($review) > 3) ? $review[3] : null;
-     $image5 = (count($review) > 4) ? $review[4] : null;
-     $image6 = (count($review) > 5) ? $review[5] : null;
+     $image1 = (count($review) > 0) ? $review[0] : null ;
+     $image2 = (count($review) > 1) ? $review[1] : null ;
+     $image3 = (count($review) > 2) ? $review[2] : null ;
+     $image4 = (count($review) > 3) ? $review[3] : null ;
+     $image5 = (count($review) > 4) ? $review[4] : null ;
+     $image6 = (count($review) > 5) ? $review[5] : null ;
      $images = array(
          $image1,
          $image2,
