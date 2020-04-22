@@ -19,6 +19,19 @@ export class HomeScreenDetail extends Component {
     super(props);
     this.state = {};
   }
+  addToCart(ThamSo) {
+    let tourAdd = {
+      id: ThamSo.id,
+      name: ThamSo.name,
+      price: ThamSo.price,
+      imageBackground: ThamSo.imageBackground,
+      quantity: 1,
+    };
+    this.props.navigation.navigate('Cart', {
+      screen: 'Cart',
+      params: tourAdd,
+    });
+  }
   render() {
     const {ThamSo} = this.props.route.params;
     return (
@@ -56,8 +69,7 @@ export class HomeScreenDetail extends Component {
           <Text style={styles.Gia}>{ThamSo.price}</Text>
           <View style={styles.buttomDatTour}>
             <Button rounded danger>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Cart')}>
+              <TouchableOpacity onPress={() => this.addToCart(ThamSo)}>
                 <Text style={styles.datTour}> Đặt Tour </Text>
               </TouchableOpacity>
             </Button>
