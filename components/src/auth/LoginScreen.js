@@ -30,7 +30,7 @@ export class LoginScreen extends Component {
   }
   UserLoginFunction = () => {
     if (this.state.UserEmail !== '' && this.state.UserPassword !== '') {
-      fetch('http://192.168.1.6:81/user_login.php', {
+      fetch('http://192.168.1.8:81/user_login.php', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

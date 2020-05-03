@@ -167,7 +167,7 @@ export class TatCaScreen extends Component {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: 'rgba(135,206,250,0.3)',
+    backgroundColor: '#fff',
   },
   list: {
     flex: 1,

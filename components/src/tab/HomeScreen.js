@@ -45,7 +45,7 @@ export class HomeScreen extends Component {
     });
   }
   componentDidMount() {
-    fetch('http://192.168.1.6:81/listTourHot.php')
+    fetch('http://192.168.1.8:81/listTourHot.php')
       .then(response => response.json())
       .then(responseJson => {
         this.setState({

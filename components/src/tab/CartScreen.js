@@ -27,7 +27,7 @@ export class CartScreen extends Component {
         cart: cart,
       });
     } catch (e) {
-      // save error
+      //save error
     }
   }
   async getCart() {
@@ -38,13 +38,6 @@ export class CartScreen extends Component {
           cart: JSON.parse(cart),
         });
       }
-    } catch (e) {
-      // read error
-    }
-  }
-  async removeCart() {
-    try {
-      await AsyncStorage.removeItem('@Cart');
     } catch (e) {
       // read error
     }
@@ -61,42 +54,6 @@ export class CartScreen extends Component {
     } else {
       products.push(product);
     }
-    // Update the state
-    let cart = {
-      products: products,
-      totalPrice: totalPrice,
-    };
-    this.setCart(cart);
-  }
-  editItemCart(product, operation) {
-    // Get current list of products
-    let products = this.state.cart.products;
-    let idx = this.search(product, products);
-    let totalPrice = parseInt(this.state.cart.totalPrice);
-
-    if (operation == 'add') {
-      totalPrice += parseInt(product.price);
-      products[idx].quantity += 1;
-    } else if (operation == 'sub') {
-      if (products[idx].quantity > 1) {
-        totalPrice -= parseInt(product.price);
-        products[idx].quantity -= 1;
-      }
-    }
-    // Update the state
-    let cart = {
-      products: products,
-      totalPrice: totalPrice,
-    };
-    this.setCart(cart);
-  }
-  removeItemCart(product) {
-    let products = this.state.cart.products;
-    let idx = this.search(product, products);
-    let totalPrice =
-      this.state.cart.totalPrice - product.price * product.quantity;
-    // Remove single item
-    products.splice(idx, 1);
     // Update the state
     let cart = {
       products: products,
@@ -124,45 +81,13 @@ export class CartScreen extends Component {
       addressInput: '',
     };
   }
-  createBill() {
-    // navigation
-    let navigation = this.props.navigation;
-    if (this.state.phoneInput != '') {
-      // Gửi thông tin lên server 192.168.64.2
-      fetch('http://192.168.1.4:81/createBill.php', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: this.state.nameInput,
-          phone: this.state.phoneInput,
-          address: this.state.addressInput,
-        }),
-      })
-        .then(response => response.text())
-        .then(function(data) {
-          // Thông báo đặt hàng thành công
-          alert(
-            'Cám ơn bạn đã đặt hàng ! Chúng tôi sẽ liên hệ bạn sớm nhất có thể',
-          );
-          // Chuyển về trang chủ
-          navigation.navigate('Home');
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    } else {
-      // Báo lỗi nếu chưa nhập sdt
-      alert('Vui lòng nhập số điện thoại');
-    }
-  }
   componentDidMount() {
-    let product = this.props.route.params;
-    if (product != null) {
-      this.addItemCart(product);
-    }
+    this.getCart().then(() => {
+      let product = this.props.route.params;
+      if (product != null) {
+        this.addItemCart(product);
+      }
+    });
   }
   render() {
     console.log(this.props.route.params);
@@ -198,13 +123,13 @@ export class CartScreen extends Component {
                         width={130}
                         height={40}
                         style={{marginTop: 7, marginLeft: 20}}
-                        value={item.quantity}
-                        onIncrease={increased => {
-                          this.editItemCart(item, 'add');
-                        }}
-                        onDecrease={decreased => {
-                          this.editItemCart(item, 'sub');
-                        }}
+                        // value={item.quantity}
+                        // onIncrease={increased => {
+                        //   this.editItemCart(item, 'add');
+                        // }}
+                        // onDecrease={decreased => {
+                        //   this.editItemCart(item, 'sub');
+                        // }}
                       />
                       <TouchableOpacity>
                         <Image
@@ -239,9 +164,15 @@ export class CartScreen extends Component {
         <View style={styles.cover_cart}>
           <View style={styles.info_Tour}>
             <Text style={styles.text_info}>số lượng: </Text>
+            <Text style={styles.text_info_cart}>
+              {this.state.cart.products.length}
+            </Text>
           </View>
           <View style={styles.info_Tour}>
             <Text style={styles.text_info}>tổng tiền: </Text>
+            <Text style={styles.text_info_cart}>
+              {this.state.cart.totalPrice}
+            </Text>
           </View>
           <TouchableOpacity>
             <View style={styles.button_cover}>
@@ -329,9 +260,14 @@ const styles = StyleSheet.create({
   info_Tour: {
     padding: 4,
     marginLeft: 10,
+    flexDirection: 'row',
   },
   text_info: {
     fontSize: 18,
+  },
+  text_info_cart: {
+    fontSize: 18,
+    marginLeft: 200,
   },
   cover_cart: {
     backgroundColor: 'rgba(78, 81, 105, 0.4)',
